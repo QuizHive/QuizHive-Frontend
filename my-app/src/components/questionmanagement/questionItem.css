@@ -1,0 +1,9 @@
+.existing-question {
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+
+.dark-mode .existing-question {
+    border-color: #444;
+}

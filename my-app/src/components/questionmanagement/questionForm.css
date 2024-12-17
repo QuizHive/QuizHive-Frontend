@@ -1,0 +1,49 @@
+.question-form {
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .question-form {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+}
+
+.question-form h1 {
+    text-align: center;
+}
+
+.question-form div {
+    margin-bottom: 15px;
+}
+
+.question-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.question-form input,
+.question-form select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.question-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.question-form button:hover {
+    background-color: #0056b3;
+}
