@@ -4,7 +4,8 @@ import axios from 'axios';
 import ToggleModeButton from './components/ToggleModeButton';
 import LogoutButton from './components/LogoutButton';
 import Shapes from './MainMenu/Shapes'
-import API_BASE_URL from '../config/api';
+import API_BASE_URL from "../config/api";
+
 const MainMenu = () => {
     const [score, setScore] = useState(null);
     const [isPlayer, setIsPlayer] = useState(false); // افزودن state برای تشخیص نوع کاربر
@@ -12,7 +13,7 @@ const MainMenu = () => {
 
     useEffect(() => {
         // دریافت اطلاعات کاربر و امتیاز از بک‌اند
-        axios.get('${API_BASE_URL}/api/user/info')  // اینجا مسیر API خود را جایگزین کنید
+        axios.get(`${API_BASE_URL}/api/user/info`)  // اینجا مسیر API خود را جایگزین کنید
             .then(response => {
                 const userInfo = response.data;
                 setScore(userInfo.score);

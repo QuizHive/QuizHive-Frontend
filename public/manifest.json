@@ -1,6 +1,7 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Quiz Hive App",
+  "name": "Quiz Hive - The Ultimate Quiz Application",
+  "description": "Quiz Hive is an engaging and interactive quiz application that allows users to test their knowledge on various topics. With a wide range of quizzes and a user-friendly interface, Quiz Hive makes learning fun and exciting for everyone.",
   "icons": [
     {
       "src": "favicon.ico",

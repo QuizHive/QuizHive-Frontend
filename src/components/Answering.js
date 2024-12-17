@@ -2,13 +2,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import API_BASE_URL from '../config/api';
 import RandomQuestion from './answering/RandomQuestion';
 import QuestionAccordion from './answering/QuestionAccordion';
 import Filters from './answering/Filters';
 import LogoutButton from "./components/LogoutButton";
 import ToggleModeButton from "./components/ToggleModeButton";
 import '../styles/answering.css';
+import API_BASE_URL from "../config/api";
 
 function Answering() {
     const navigate = useNavigate();
@@ -76,7 +76,7 @@ function Answering() {
         }
 
         try {
-            const response = await axios.post('${API_BASE_URL}/api/submit-answer', {
+            const response = await axios.post(`${API_BASE_URL}/api/submit-answer`, {
                 questionId: question.id,
                 answer: selectedAnswer
             });

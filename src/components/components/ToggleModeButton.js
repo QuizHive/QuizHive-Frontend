@@ -17,4 +17,3 @@ const ToggleModeButton = () => {
 };
 
 export default ToggleModeButton;
-

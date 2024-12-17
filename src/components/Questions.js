@@ -6,7 +6,8 @@ import QuestionCard from './Questions/QuestionCard';
 import Filter from './Questions/Filter';
 import LogoutButton from "./components/LogoutButton";
 import ToggleModeButton from "./components/ToggleModeButton";
-import API_BASE_URL from '../config/api';
+import API_BASE_URL from "../config/api";
+
 const Questions = () => {
     const [isDarkMode, setIsDarkMode] = useState(false);
     const [difficultyFilter, setDifficultyFilter] = useState('all');
@@ -26,7 +27,7 @@ const Questions = () => {
 
     useEffect(() => {
         // دریافت سوالات از بک‌اند
-        axios.get('${API_BASE_URL}/api/questions')
+        axios.get(`${API_BASE_URL}/api/questions`)
             .then(response => {
                 setQuestionsData(response.data);
             })

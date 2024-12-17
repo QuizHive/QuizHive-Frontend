@@ -7,7 +7,8 @@ import LogoutButton from './components/LogoutButton';
 import ToggleModeButton from './components/ToggleModeButton';
 import CategoryList from './category/CategoryList';
 import CategoryForm from './category/CategoryForm';
-import API_BASE_URL from '../config/api';
+import API_BASE_URL from "../config/api";
+
 const Category = () => {
     const [darkMode, setDarkMode] = useState(false);
     const [categories, setCategories] = useState([]);
@@ -15,7 +16,7 @@ const Category = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get('${API_BASE_URL}/api/categories')
+        axios.get(`${API_BASE_URL}/api/categories`)
             .then(response => {
                 setCategories(response.data);
             })
