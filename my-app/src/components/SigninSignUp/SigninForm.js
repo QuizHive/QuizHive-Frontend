@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './styles/signinForm.css';
-
+import API_BASE_URL from '../config/api';
 const SigninForm = () => {
     const navigate = useNavigate();
 
@@ -13,7 +13,7 @@ const SigninForm = () => {
 
         if (loginEmail && loginPassword) {
             try {
-                const response = await axios.post('/api/login', {
+                const response = await axios.post('${API_BASE_URL}/api/login', {
                     email: loginEmail,
                     password: loginPassword
                 });

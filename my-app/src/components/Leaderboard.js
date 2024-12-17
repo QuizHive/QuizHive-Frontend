@@ -4,7 +4,7 @@ import axios from 'axios'; // اضافه کردن axios
 import '../styles/leaderboard.css';
 import LogoutButton from './components/LogoutButton';
 import ToggleModeButton from "./components/ToggleModeButton";
-
+import API_BASE_URL from '../config/api';
 function Leaderboard(props) {
     const data = props.data || [];
     const rows = data.slice(0, 10).map((user, index) => {
@@ -36,7 +36,7 @@ function App() {
 
     useEffect(() => {
         // دریافت داده‌ها از بک‌اند
-        axios.get('/api/leaderboard') // اینجا آدرس API باید با آدرس سرورتان جایگزین شود
+        axios.get('${API_BASE_URL}/api/leaderboard') // اینجا آدرس API باید با آدرس سرورتان جایگزین شود
             .then(response => {
                 setData(response.data);
             })

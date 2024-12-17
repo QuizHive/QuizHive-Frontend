@@ -6,14 +6,14 @@ import LogoutButton from './components/LogoutButton';
 import ToggleModeButton from './components/ToggleModeButton';
 import QuestionForm from './questionmanagement/QuestionForm';
 import QuestionList from './questionmanagement/QuestionList';
-
+import API_BASE_URL from '../config/api';
 const QuestionManagement = () => {
     const [darkMode, setDarkMode] = useState(false);
     const [existingQuestions, setExistingQuestions] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get('/api/questions')
+        axios.get('${API_BASE_URL}/api/questions')
             .then(response => {
                 setExistingQuestions(response.data);
             })
@@ -23,7 +23,7 @@ const QuestionManagement = () => {
     }, []);
 
     const addQuestion = (newQuestion) => {
-        axios.post('/api/questions', newQuestion)
+        axios.post('${API_BASE_URL}/api/questions', newQuestion)
             .then(response => {
                 setExistingQuestions([...existingQuestions, response.data]);
             })
