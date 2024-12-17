@@ -1,0 +1,23 @@
+/* src/styles/categoryItem.css */
+.col_md_1_list {
+    width: 125px;
+}
+
+.col_md_1_list > p, .col_md_2_list > h4 {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.col_md_2_list {
+    flex-grow: 1;
+}
+
+.list_dsp_true {
+    opacity: 1;
+}
+
+.list_shopping > .col_md_1_list {
+    border-left: 4px solid #000000;
+    color: #000000;
+}

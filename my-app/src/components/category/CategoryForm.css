@@ -1,0 +1,57 @@
+/* src/styles/categoryform.css */
+
+/* Layout styles for the form */
+.category-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 20px;
+    align-content: center;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Form elements */
+.category-form label {
+    font-weight: bold;
+    align-content: center;
+    margin-bottom: 8px;
+}
+
+.category-form input[type="text"],
+.category-form textarea {
+    padding: 8px;
+    margin-bottom: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Button styling */
+.category-form button {
+    background-color: #0056b3;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.category-form button:hover {
+    background-color: #003d82;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .category-form {
+        padding: 10px;
+        max-width: 90%;
+    }
+
+    .category-form button {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+}
