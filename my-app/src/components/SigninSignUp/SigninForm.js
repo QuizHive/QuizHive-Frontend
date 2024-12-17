@@ -17,7 +17,9 @@ const SigninForm = () => {
                     email: loginEmail,
                     password: loginPassword
                 });
-                if (response.data.success) {
+                if (response.data.success && response.data.token) {
+                    // ذخیره توکن در localStorage
+                    localStorage.setItem('authToken', response.data.token);
                     navigate('/main-menu');
                 } else {
                     alert(response.data.message || 'Login failed');
@@ -52,4 +54,3 @@ const SigninForm = () => {
 };
 
 export default SigninForm;
-
