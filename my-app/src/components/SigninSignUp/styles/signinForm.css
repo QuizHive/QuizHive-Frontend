@@ -1,0 +1,64 @@
+.form-group {
+    position: relative;
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
+.form-style {
+    height: 48px;
+    width: 100%;
+    font-weight: 500;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 22px;
+    outline: none;
+    border: none;
+    transition: all 200ms linear;
+    margin-top: 20px;
+    box-shadow: 0 4px 8px 0 rgba(21, 21, 21, 0.2);
+}
+
+.form-style:focus,
+.form-style:active {
+    outline: none;
+    box-shadow: 0 4px 8px 0 rgba(21, 21, 21, 0.2);
+}
+
+.input-icon {
+    position: absolute;
+    top: 0;
+    left: 18px;
+    height: 48px;
+    font-size: 24px;
+    line-height: 48px;
+    text-align: left;
+    color: var(--thir-color);
+    transition: all 200ms linear;
+}
+
+.btn {
+    border-radius: 4px;
+    margin-top: 20px;
+    height: 44px;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: all 200ms linear;
+    padding: 0 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: none;
+    background-color: var(--thir-color);
+    color: var(--main-color);
+}
+
+.btn:active,
+.btn:focus,
+.btn:hover {
+    background-color: var(--main-color);
+    color: var(--thir-color);
+    box-shadow: 0 8px 24px 0 rgba(16, 39, 112, 0.2);
+}

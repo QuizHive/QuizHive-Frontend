@@ -1,0 +1,67 @@
+:root {
+  --main-color: #000000;
+  --sec-color: #000000;
+  --thir-color: #ffffff;
+  --background-color: #dcdbd9;
+  --cardbackground-color: #ffffff;
+  --textbox-color: #9c9c9c;
+}
+
+body.light-mode {
+  background-color: #faf9f7;
+}
+
+body.dark-mode {
+  --main-color: #ffffff;
+  --sec-color: #c4c3ca;
+  --thir-color: #ffffff;
+  --background-color: #1f2029;
+  --cardbackground-color: #2a2b38;
+  background-color: #1f2029;
+}
+
+.message-box {
+  height: 200px;
+  width: 500px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -100px;
+  margin-left: 50px;
+  font-family: Roboto;
+  font-weight: 300;
+}
+
+.message-box h1 {
+  font-size: 60px;
+  line-height: 46px;
+  margin-bottom: 40px;
+}
+
+.buttons-con .action-link-wrap {
+  margin-top: 40px;
+}
+
+.buttons-con .action-link-wrap a {
+  background: var(--sec-color);
+  padding: 8px 25px;
+  border-radius: 4px;
+  color: var(--cardbackground-color);
+  font-weight: bold;
+  font-size: 14px;
+  transition: all 0.3s linear;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.buttons-con .action-link-wrap a:hover {
+  background: var(--thir-color);
+  color: var(--main-color);
+}
+
+@media (max-width: 450px) {
+  .message-box {
+    margin-left: -190px;
+    text-align: center;
+  }
+}

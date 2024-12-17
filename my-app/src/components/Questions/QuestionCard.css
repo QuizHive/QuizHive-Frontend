@@ -1,0 +1,48 @@
+/* src/styles/QuestionCard.css */
+.acc-item {
+    margin: 10px 0;
+}
+
+.acc-btn {
+    width: 100%;
+    padding: 1.6rem 2rem;
+    font-size: 1.6rem;
+    cursor: pointer;
+    background: inherit;
+    border: none;
+    outline: none;
+    text-align: left;
+    transition: all 0.5s linear;
+}
+
+.acc-content {
+    max-height: 0;
+    color: rgba(0, 0, 0, 0.75);
+    font-size: 1.5rem;
+    margin: 0 2rem;
+    padding-left: 1rem;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+    border-bottom: 1px solid #ccc;
+}
+
+/* Additional styles for strong visual */
+.selected-option {
+    background-color: #f0f0f0;
+    font-weight: bold;
+}
+
+.correct-answer {
+    color: green;
+    font-weight: bold;
+}
+
+.answer-status.correct {
+    color: green;
+    font-weight: bold;
+}
+
+.answer-status.incorrect {
+    color: red;
+    font-weight: bold;
+}

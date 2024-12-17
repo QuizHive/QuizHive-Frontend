@@ -1,0 +1,41 @@
+/* src/styles/Filter.css */
+.filter-options {
+    margin: 1rem 0;
+    text-align: center;
+}
+.filter-btn, #category-select-q, #difficulty-select-q {
+    padding: 10px 20px;
+    margin: 0 5px;
+    border: none;
+    background-color: #777777;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.4rem;
+}
+
+.filter-btn:hover, #category-select-q:hover,#difficulty-select-q:hover {
+    background-color: #0056b3;
+}
+
+#category-select-q, #difficulty-select-q {
+    appearance: none; /* Removes default browser styles */
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.4rem;
+    transition: background-color 0.3s ease;
+}
+
+/* Optional: Add custom arrow icon for dropdown */
+#category-select-q::after, #difficulty-select-q::after {
+    content: "▼";
+    font-size: 1rem;
+    color: white;
+    margin-left: 10px;
+    position: relative;
+    top: 3px;
+}

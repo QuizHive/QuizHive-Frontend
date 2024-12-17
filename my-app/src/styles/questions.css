@@ -1,0 +1,25 @@
+.card {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+
+.dark-mode-q {
+    background-color: #333;
+    color: #f9f9f9;
+}
+
+.light-mode-q {
+    background-color: #fff;
+    color: #333;
+}

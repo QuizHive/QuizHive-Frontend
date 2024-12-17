@@ -1,0 +1,18 @@
+#logout-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: var(--sec-color);
+    color: var(--cardbackground-color);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+#logout-button:hover {
+    background-color: var(--thir-color);
+    color: var(--main-color);
+}

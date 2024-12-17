@@ -1,0 +1,26 @@
+body.light-mode {
+  background-color: #faf9f7;
+}
+
+body.dark-mode {
+  background-color: #1f2029;
+  color: #e0e0e0;
+}
+
+#mode-toggle-sign {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  z-index: 1000;
+  transition: background-color 250ms ease; /* افزودن transition برای افکت روان‌تر */
+}
+
+#mode-toggle-sign:hover {
+  background-color: #555;
+}
