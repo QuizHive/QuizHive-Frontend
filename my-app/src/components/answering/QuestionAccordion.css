@@ -1,0 +1,29 @@
+/* src/styles/QuestionAccordion.css */
+.acc-item {
+    margin: 10px 0;
+}
+
+.acc-btn {
+    width: 100%;
+    padding: 1.6rem 2rem;
+    font-size: 1.6rem;
+    cursor: pointer;
+    background: inherit;
+    border: none;
+    outline: none;
+    text-align: left;
+    transition: all 0.3s linear;
+}
+
+.acc-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+    border-bottom: 1px solid #ccc;
+    padding: 0 2rem;
+}
+
+.acc-btn.is-open {
+    color: #000;
+    font-weight: bold;
+}
