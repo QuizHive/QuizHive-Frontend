@@ -1,0 +1,11 @@
+services:
+  frontend:
+    build: .
+    container_name: quizhive_frontend
+    env_file: .env
+    user: node
+    ports:
+      - '$PORT:$PORT'
+    volumes:
+      - .:/home/node/app
+    restart: unless-stopped

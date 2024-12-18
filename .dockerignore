@@ -1,0 +1,29 @@
+# Build output
+/dist
+/build
+
+# Logs
+*.log
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Environment variable files
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+
+# Dockerfile and docker-compose configuration for local development (if not needed inside container)
+docker-compose.override.yml
+
+# Test coverage reports
+coverage/
