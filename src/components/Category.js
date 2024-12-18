@@ -7,7 +7,6 @@ import LogoutButton from './components/LogoutButton';
 import ToggleModeButton from './components/ToggleModeButton';
 import CategoryList from './category/CategoryList';
 import CategoryForm from './category/CategoryForm';
-import API_BASE_URL from "../config/api";
 
 const Category = () => {
     const [darkMode, setDarkMode] = useState(false);
@@ -16,7 +15,7 @@ const Category = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get(`${API_BASE_URL}/api/categories`)
+        axios.get(`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/api/categories`)
             .then(response => {
                 setCategories(response.data);
             })
@@ -37,7 +36,7 @@ const Category = () => {
 
         const newCategory = { title, description };
 
-        axios.post('${API_BASE_URL}/api/categories', newCategory)
+        axios.post(`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/api/categories`, newCategory)
             .then(response => {
                 setCategories(prevCategories => [...prevCategories, response.data]);
                 setIsFormActive(false);

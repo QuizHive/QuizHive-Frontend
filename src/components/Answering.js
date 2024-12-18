@@ -8,7 +8,6 @@ import Filters from './answering/Filters';
 import LogoutButton from "./components/LogoutButton";
 import ToggleModeButton from "./components/ToggleModeButton";
 import '../styles/answering.css';
-import API_BASE_URL from "../config/api";
 
 function Answering() {
     const navigate = useNavigate();
@@ -22,7 +21,7 @@ function Answering() {
     const [questionResults, setQuestionResults] = useState({});
 
     useEffect(() => {
-        axios.get('${API_BASE_URL}/api/questions')
+        axios.get(`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/api/questions`)
             .then(response => {
                 setQuestions(response.data);
             })
@@ -52,7 +51,7 @@ function Answering() {
         }
 
         try {
-            const response = await axios.post('${API_BASE_URL}/api/submit-answer', {
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/api/submit-answer`, {
                 questionId: currentQuestion.id,
                 answer: selectedOption
             });
@@ -76,7 +75,7 @@ function Answering() {
         }
 
         try {
-            const response = await axios.post(`${API_BASE_URL}/api/submit-answer`, {
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/api/submit-answer`, {
                 questionId: question.id,
                 answer: selectedAnswer
             });

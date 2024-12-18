@@ -13,13 +13,14 @@ const SigninForm = () => {
 
         if (loginEmail && loginPassword) {
             try {
-                const response = await axios.post('${API_BASE_URL}/api/login', {
+                const response = await axios.post(`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/auth/login`, {
                     email: loginEmail,
-                    password: loginPassword
+                    passwordHash: loginPassword
                 });
-                if (response.data.success && response.data.token) {
-                    // ذخیره توکن در localStorage
-                    localStorage.setItem('authToken', response.data.token);
+                console.log(response)
+                if (response.status === 200 && response.data.rToken && response.data.aToken) {
+                    localStorage.setItem('atoken', response.data.aToken); // ذخیره اکسس توکن
+                    localStorage.setItem('rtoken', response.data.rToken);
                     navigate('/main-menu');
                 } else {
                     alert(response.data.message || 'Login failed');

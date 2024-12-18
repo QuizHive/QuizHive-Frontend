@@ -15,13 +15,15 @@ const SignupForm = () => {
 
         if (signupName && signupEmail && signupPassword && signupUserType) {
             try {
-                const response = await axios.post('${API_BASE_URL}/api/signup', {
-                    name: signupName,
+                console.log(signupUserType)
+                const response = await axios.post(`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/auth/register`, {
+                    nickname: signupName,
                     email: signupEmail,
-                    password: signupPassword,
-                    userType: signupUserType
+                    passwordHash: signupPassword,
+                    role: signupUserType
                 });
-                if (response.data.success) {
+                console.log(response)
+                if (response.status === 200) {
                     navigate('/mainmenu');
                 } else {
                     alert(response.data.message || 'Signup failed');
@@ -56,7 +58,7 @@ const SignupForm = () => {
                         <select name="userType" className="form-style" id="userType" defaultValue="">
                             <option value="" disabled>Select your role</option>
                             <option value="player">Player</option>
-                            <option value="developer">Developer</option>
+                            <option value="admin">Admin</option>
                         </select>
                         <i className="input-icon uil uil-user"></i>
                     </div>

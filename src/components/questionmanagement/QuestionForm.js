@@ -1,28 +1,36 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import './questionForm.css';
 
 const QuestionForm = ({ onAddQuestion, darkMode }) => {
     const [category, setCategory] = useState('SHOPPING');
     const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [options, setOptions] = useState({a: '', b: '', c: '', d: ''});
-    const [correctAnswer, setCorrectAnswer] = useState('');
-    const [difficulty, setDifficulty] = useState('EASY');
+    const [questionText, setDescription] = useState('');
+    const [options, setOptions] = useState(['', '', '', '']); // Array for options
+    const [correct, setCorrectAnswer] = useState(''); // Will be a number (1-4)
+    const [difficulty, setDifficulty] = useState(1); // Default to EASY (1)
 
-    const handleOptionChange = (e) => {
-        const { name, value } = e.target;
-        setOptions((prevOptions) => ({ ...prevOptions, [name]: value }));
+    const handleOptionChange = (index, value) => {
+        const newOptions = [...options];
+        newOptions[index] = value; // Update the option at the specific index
+        setOptions(newOptions);
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const newQuestion = { category, title, description, options, correctAnswer, difficulty };
+        const newQuestion = {
+            category,
+            questionText,
+            options,
+            correct: Number(correct), // Convert to number
+            difficulty // This is already a number
+        };
         onAddQuestion(newQuestion);
+        // Reset the form
         setTitle('');
         setDescription('');
-        setOptions({a: '', b: '', c: '', d: ''});
-        setCorrectAnswer('');
-        setDifficulty('EASY');
+        setOptions(['', '', '', '']);
+        setCorrectAnswer(''); // Reset correctly to empty
+        setDifficulty(1); // Reset difficulty to default (1)
     };
 
     return (
@@ -49,32 +57,31 @@ const QuestionForm = ({ onAddQuestion, darkMode }) => {
                 </div>
                 <div>
                     <label>Difficulty:</label>
-                    <select value={difficulty} onChange={(e) => setDifficulty(e.target.value)}>
-                        <option value="HARD">HARD</option>
-                        <option value="NORMAL">NORMAL</option>
-                        <option value="EASY">EASY</option>
+                    <select value={difficulty} onChange={(e) => setDifficulty(Number(e.target.value))}>
+                        <option value={1}>Easy</option>
+                        <option value={2}>Medium</option>
+                        <option value={3}>Hard</option>
                     </select>
                 </div>
                 <div>
                     <label>Description:</label>
                     <input
                         type="text"
-                        value={description}
+                        value={questionText}
                         onChange={(e) => setDescription(e.target.value)}
                         placeholder="Enter description here"
                         required
                     />
                 </div>
                 <div>
-                    {['a', 'b', 'c', 'd'].map((option) => (
-                        <div key={option} className="option_field">
-                            <label>Option {option.toUpperCase()}:</label>
+                    {options.map((option, index) => (
+                        <div key={index} className="option_field">
+                            <label>Option {String.fromCharCode(97 + index).toUpperCase()}:</label>
                             <input
                                 type="text"
-                                name={option}
-                                value={options[option]}
-                                onChange={handleOptionChange}
-                                placeholder={`Enter Option ${option.toUpperCase()}`}
+                                value={option}
+                                onChange={(e) => handleOptionChange(index, e.target.value)} // Update specific option
+                                placeholder={`Enter Option ${String.fromCharCode(97 + index).toUpperCase()}`}
                                 required
                             />
                         </div>
@@ -82,10 +89,10 @@ const QuestionForm = ({ onAddQuestion, darkMode }) => {
                 </div>
                 <div>
                     <label>Correct Answer:</label>
-                    <select value={correctAnswer} onChange={(e) => setCorrectAnswer(e.target.value)} required>
+                    <select value={correct} onChange={(e) => setCorrectAnswer(Number(e.target.value))} required>
                         <option value="" disabled>Select the correct answer</option>
-                        {['A', 'B', 'C', 'D'].map((opt) => (
-                            <option key={opt} value={opt}>{`Option ${opt}`}</option>
+                        {['1', '2', '3', '4'].map((opt, index) => (
+                            <option key={opt} value={index + 1}>{`Option ${String.fromCharCode(97 + index).toUpperCase()}`}</option>
                         ))}
                     </select>
                 </div>

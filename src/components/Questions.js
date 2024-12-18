@@ -6,7 +6,6 @@ import QuestionCard from './Questions/QuestionCard';
 import Filter from './Questions/Filter';
 import LogoutButton from "./components/LogoutButton";
 import ToggleModeButton from "./components/ToggleModeButton";
-import API_BASE_URL from "../config/api";
 
 const Questions = () => {
     const [isDarkMode, setIsDarkMode] = useState(false);
@@ -27,7 +26,7 @@ const Questions = () => {
 
     useEffect(() => {
         // دریافت سوالات از بک‌اند
-        axios.get(`${API_BASE_URL}/api/questions`)
+        axios.get(`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/api/questions`)
             .then(response => {
                 setQuestionsData(response.data);
             })

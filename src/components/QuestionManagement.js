@@ -1,12 +1,12 @@
-import React, {useState, useEffect} from 'react';
-import {useNavigate} from 'react-router-dom';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import api from '../utils/axios'; // Import the axios instance
 import '../styles/management.css';
 import LogoutButton from './components/LogoutButton';
 import ToggleModeButton from './components/ToggleModeButton';
 import QuestionForm from './questionmanagement/QuestionForm';
 import QuestionList from './questionmanagement/QuestionList';
-import API_BASE_URL from "../config/api";
+import {getAccessToken, getRefreshToken} from "../utils/auth";
 
 const QuestionManagement = () => {
     const [darkMode, setDarkMode] = useState(false);
@@ -14,7 +14,8 @@ const QuestionManagement = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get(`${API_BASE_URL}/api/questions`)
+        // Use the axios instance to fetch questions
+        api.get(`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/questions`)
             .then(response => {
                 setExistingQuestions(response.data);
             })
@@ -24,9 +25,18 @@ const QuestionManagement = () => {
     }, []);
 
     const addQuestion = (newQuestion) => {
-        axios.post('${API_BASE_URL}/api/questions', newQuestion)
+        console.log('New Question Object:', newQuestion);
+
+        const url = `/questions`;
+        console.log('Sending request to:', url);
+        console.log('Payload:', newQuestion);
+
+        api.post(url, newQuestion, {
+            headers: { 'Content-Type': 'application/json' }
+        })
             .then(response => {
-                setExistingQuestions([...existingQuestions, response.data]);
+                console.log('Response from server:', response.data);
+                setExistingQuestions(prevQuestions => [...prevQuestions, response.data]);
             })
             .catch(error => {
                 console.error('Error submitting question:', error);
@@ -45,7 +55,7 @@ const QuestionManagement = () => {
     return (
         <div className={`app-container ${darkMode ? 'dark-mode' : 'light-mode'}`}>
             <LogoutButton onLogout={goBack} buttonText="Back"/>
-            <ToggleModeButton />
+            <ToggleModeButton onToggle={toggleDarkMode} />
             <QuestionForm onAddQuestion={addQuestion} darkMode={darkMode} />
             <QuestionList questions={existingQuestions} darkMode={darkMode} />
         </div>
