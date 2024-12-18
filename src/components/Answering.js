@@ -21,7 +21,7 @@ function Answering() {
     const [questionResults, setQuestionResults] = useState({});
 
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/api/questions`)
+        axios.get(`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/questions`)
             .then(response => {
                 setQuestions(response.data);
             })
@@ -51,9 +51,9 @@ function Answering() {
         }
 
         try {
-            const response = await axios.post(`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/api/submit-answer`, {
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/questions/${currentQuestion.id}/solve`, {
                 questionId: currentQuestion.id,
-                answer: selectedOption
+                answerIndex: selectedOption
             });
             setResultMessage(response.data.correct ? 'Correct! 🎉' : 'Incorrect. Try again! ❌');
         } catch (error) {
@@ -75,9 +75,9 @@ function Answering() {
         }
 
         try {
-            const response = await axios.post(`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/api/submit-answer`, {
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/questions/${question.id}/solve`, {
                 questionId: question.id,
-                answer: selectedAnswer
+                answerIndex: selectedAnswer
             });
             const result = response.data.correct ? 'Correct! 🎉' : 'Incorrect. Try again! ❌';
             setQuestionResults({

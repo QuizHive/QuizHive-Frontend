@@ -6,7 +6,7 @@ import LogoutButton from './components/LogoutButton';
 import ToggleModeButton from './components/ToggleModeButton';
 import QuestionForm from './questionmanagement/QuestionForm';
 import QuestionList from './questionmanagement/QuestionList';
-import {getAccessToken, getRefreshToken} from "../utils/auth";
+import axios from "axios";
 
 const QuestionManagement = () => {
     const [darkMode, setDarkMode] = useState(false);
@@ -15,7 +15,7 @@ const QuestionManagement = () => {
 
     useEffect(() => {
         // Use the axios instance to fetch questions
-        api.get(`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/questions`)
+        axios.get(`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/questions`)
             .then(response => {
                 setExistingQuestions(response.data);
             })
@@ -25,17 +25,11 @@ const QuestionManagement = () => {
     }, []);
 
     const addQuestion = (newQuestion) => {
-        console.log('New Question Object:', newQuestion);
-
-        const url = `/questions`;
-        console.log('Sending request to:', url);
-        console.log('Payload:', newQuestion);
-
-        api.post(url, newQuestion, {
-            headers: { 'Content-Type': 'application/json' }
+        console.log("www")
+        axios.post(`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/questions`, newQuestion, {
         })
             .then(response => {
-                console.log('Response from server:', response.data);
+                console.log(response)
                 setExistingQuestions(prevQuestions => [...prevQuestions, response.data]);
             })
             .catch(error => {

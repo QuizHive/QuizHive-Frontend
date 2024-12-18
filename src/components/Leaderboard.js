@@ -36,7 +36,7 @@ function App() {
 
     useEffect(() => {
         // دریافت داده‌ها از بک‌اند
-        axios.get(`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/api/leaderboard`)
+        axios.get(`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/users/scoreboard/`)
             .then(response => {
                 setData(response.data);
             })

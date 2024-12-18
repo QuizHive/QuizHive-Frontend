@@ -13,7 +13,7 @@ const Category = () => {
     const [categories, setCategories] = useState([]);
     const [isFormActive, setIsFormActive] = useState(false);
     const navigate = useNavigate();
-
+    // TODO
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/api/categories`)
             .then(response => {
@@ -34,9 +34,10 @@ const Category = () => {
             return;
         }
 
-        const newCategory = { title, description };
-
-        axios.post(`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/api/categories`, newCategory)
+        axios.post(`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/questions/categories`, {
+            categoryName: title,
+            description: description,
+        })
             .then(response => {
                 setCategories(prevCategories => [...prevCategories, response.data]);
                 setIsFormActive(false);

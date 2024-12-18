@@ -25,8 +25,7 @@ const Questions = () => {
     };
 
     useEffect(() => {
-        // دریافت سوالات از بک‌اند
-        axios.get(`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/api/questions`)
+        axios.get(`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/questions`)
             .then(response => {
                 setQuestionsData(response.data);
             })
