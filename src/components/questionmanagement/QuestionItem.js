@@ -3,21 +3,20 @@ import './questionItem.css';
 
 const QuestionItem = ({ question }) => {
     return (
-        <li className="existing-question">
-            <strong>Category:</strong> {question.category}<br />
+        <li className="existing-question-qi">
+            <strong>Category:</strong> {question.category ? question.category.categoryName : "N/A"}<br />
             <strong>Title:</strong> {question.title}<br />
-            <strong>Description:</strong> {question.description}<br />
+            <strong>Description:</strong> {question.text}<br />
             <strong>Difficulty:</strong> {question.difficulty}<br />
             <strong>Options:</strong>
             <ul>
-                <li>A: {question.options.a}</li>
-                <li>B: {question.options.b}</li>
-                <li>C: {question.options.c}</li>
-                <li>D: {question.options.d}</li>
+                <li>A: {question.options[0]}</li>
+                <li>B: {question.options[1]}</li>
+                <li>C: {question.options[2]}</li>
+                <li>D: {question.options[3]}</li>
             </ul>
-            <strong>Correct Answer:</strong> {question.correctAnswer}
+            <strong>Correct Answer:</strong> {question.correct}
         </li>
     );
 };
-
 export default QuestionItem;

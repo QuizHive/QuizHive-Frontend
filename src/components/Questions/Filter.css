@@ -1,4 +1,3 @@
-/* src/styles/Filter.css */
 .filter-options {
     margin: 1rem 0;
     text-align: center;
@@ -19,7 +18,7 @@
 }
 
 #category-select-q, #difficulty-select-q {
-    appearance: none; /* Removes default browser styles */
+    appearance: none;
     background-color: #007bff;
     color: white;
     font-weight: bold;
@@ -30,7 +29,6 @@
     transition: background-color 0.3s ease;
 }
 
-/* Optional: Add custom arrow icon for dropdown */
 #category-select-q::after, #difficulty-select-q::after {
     content: "▼";
     font-size: 1rem;

@@ -1,4 +1,3 @@
-// src/components/Questions.js
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import QuestionCard from './Questions/QuestionCard';
@@ -6,13 +5,14 @@ import Filter from './Questions/Filter';
 import LogoutButton from "./components/LogoutButton";
 import ToggleModeButton from "./components/ToggleModeButton";
 import api from "../utils/axios";
+import '../styles/questions.css';
 
 const Questions = () => {
-    const [isDarkMode, setIsDarkMode] = useState(false);
     const [difficultyFilter, setDifficultyFilter] = useState('all');
     const [categoryFilter, setCategoryFilter] = useState('all');
     const [openedAccordion, setOpenedAccordion] = useState(null);
     const [questionsData, setQuestionsData] = useState([]);
+    const [categories, setCategories] = useState([]);
 
     const navigate = useNavigate();
 
@@ -32,20 +32,38 @@ const Questions = () => {
             .catch(error => {
                 console.error('Error fetching questions:', error);
             });
+
+        api.get('/questions/categories')
+            .then(response => {
+                const categoryData = response.data.map(category => ({
+                    id: category._id,
+                    name: category.categoryName,
+                }));
+                setCategories(categoryData);
+            })
+            .catch(error => {
+                console.error('Error fetching categories:', error);
+            });
     }, []);
+    const difficultyMap = {
+        1: 'easy',
+        2: 'normal',
+        3: 'hard'
+    };
 
     const applyFilters = (difficulty, category) => {
         return questionsData.filter(question => {
-            const matchesDifficulty = difficulty === 'all' || question.difficulty === difficulty;
-            const matchesCategory = category === 'all' || question.category === category;
-            return matchesDifficulty && matchesCategory;
+            const matchesDifficulty = difficulty === 'all' || difficultyMap[question.difficulty] === difficulty.toLowerCase();
+            const matchesCategory = category === 'all' || question.category.categoryName === category;
+            const hasUserAnswer = question.lastChoiceByUser != null;
+            return matchesDifficulty && matchesCategory && hasUserAnswer;
         });
     };
 
     const filteredQuestions = applyFilters(difficultyFilter, categoryFilter);
 
     return (
-        <div className={isDarkMode ? 'dark-mode-q' : 'light-mode-q'}>
+        <>
             <LogoutButton onLogout={handleBack} buttonText="Back" />
             <ToggleModeButton />
             <main className="card">
@@ -55,6 +73,7 @@ const Questions = () => {
                     setDifficultyFilter={setDifficultyFilter}
                     categoryFilter={categoryFilter}
                     setCategoryFilter={setCategoryFilter}
+                    categories={categories}
                 />
                 <Link to="/answering" className="btn random-btn">Answer New Question</Link>
                 {filteredQuestions.map((question, index) => (
@@ -67,7 +86,7 @@ const Questions = () => {
                     />
                 ))}
             </main>
-        </div>
+        </>
     );
 };
 

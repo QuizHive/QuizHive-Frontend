@@ -7,7 +7,7 @@ import api from "../utils/axios";
 
 const MainMenu = () => {
     const [score, setScore] = useState(null);
-    const [isPlayer, setIsPlayer] = useState(false); // افزودن state برای تشخیص نوع کاربر
+    const [isPlayer, setIsPlayer] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -15,7 +15,7 @@ const MainMenu = () => {
             .then(response => {
                 const userInfo = response.data;
                 setScore(userInfo.score);
-                setIsPlayer(userInfo.role); // تشخیص اینکه کاربر پلیر هست یا نه
+                setIsPlayer(userInfo.role !== 'admin');
             })
             .catch(error => {
                 console.error('Error fetching user info:', error);

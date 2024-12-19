@@ -1,6 +1,5 @@
 
 import './CategoryForm.css';
-// src/components/CategoryForm.js
 import React, { useState } from 'react';
 
 const CategoryForm = ({ addNewCategory }) => {
@@ -17,20 +16,16 @@ const CategoryForm = ({ addNewCategory }) => {
         <table className="category-form">
             <tbody>
             <tr>
-                <th></th>
                 <th>Title</th>
             </tr>
             <tr>
-                <td></td>
-                <td>
+                <th>
                     <input
                         type="text"
-                        className="input_title_desc"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                     />
-                </td>
-                <td></td>
+                </th>
             </tr>
             <tr>
                 <th className="titl_description">Description</th>
@@ -39,7 +34,6 @@ const CategoryForm = ({ addNewCategory }) => {
                 <td colSpan="3">
                     <input
                         type="text"
-                        className="input_description"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                     />

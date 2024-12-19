@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import api from '../utils/axios'; // Import the axios instance
+import api from '../utils/axios';
 import '../styles/management.css';
 import LogoutButton from './components/LogoutButton';
 import ToggleModeButton from './components/ToggleModeButton';
@@ -13,7 +13,6 @@ const QuestionManagement = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Use the axios instance to fetch questions
         api.get("/questions")
             .then(response => {
                 setExistingQuestions(response.data);
@@ -24,18 +23,12 @@ const QuestionManagement = () => {
     }, []);
 
     const addQuestion = (newQuestion) => {
-        console.log('New Question Object:', newQuestion);
-
-        const url = `/questions`;
-        console.log('Sending request to:', url);
-        console.log('Payload:', newQuestion);
-
-        api.post(url, newQuestion, {
+        api.post(`/questions`, newQuestion, {
             headers: { 'Content-Type': 'application/json' }
         })
+            .then(() => api.get("/questions"))
             .then(response => {
-                console.log('Response from server:', response.data);
-                setExistingQuestions(prevQuestions => [...prevQuestions, response.data]);
+                setExistingQuestions(response.data);
             })
             .catch(error => {
                 console.error('Error submitting question:', error);
@@ -52,12 +45,12 @@ const QuestionManagement = () => {
     };
 
     return (
-        <div className={`app-container ${darkMode ? 'dark-mode' : 'light-mode'}`}>
-            <LogoutButton onLogout={goBack} buttonText="Back"/>
+        <>
+            <LogoutButton onLogout={goBack} buttonText="Back" />
             <ToggleModeButton onToggle={toggleDarkMode} />
             <QuestionForm onAddQuestion={addQuestion} darkMode={darkMode} />
             <QuestionList questions={existingQuestions} darkMode={darkMode} />
-        </div>
+        </>
     );
 };
 

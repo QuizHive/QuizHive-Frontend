@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './logoutButton.css';
 
-const LogoutButton = ({ onLogout, buttonText = "Logout" }) => { // افزودن props برای متن دکمه
+const LogoutButton = ({ onLogout, buttonText = "Logout" }) => {
     const navigate = useNavigate();
 
     const handleLogoutClick = () => {
@@ -16,7 +16,7 @@ const LogoutButton = ({ onLogout, buttonText = "Logout" }) => { // افزودن 
 
     return (
         <button id="logout-button" onClick={handleLogoutClick}>
-            {buttonText} {/* استفاده از متن دکمه‌ای که به عنوان prop ارسال می‌شود */}
+            {buttonText}
         </button>
     );
 };

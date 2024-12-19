@@ -1,25 +1,41 @@
-// src/components/QuestionCard.js
-import React from 'react';
+import React, { useRef } from 'react';
 import './QuestionCard.css';
+
 const QuestionCard = ({ question, index, openedAccordion, onAccordionClick }) => {
+    const difficultyString = (question.difficulty === 1 ? "Easy" : (question.difficulty === 2 ? "Normal" : "Hard"));
+    const categoryString = question.category.categoryName;
+    const contentRef = useRef(null);
+
+    const getOptionLabel = (index) => String.fromCharCode(65 + index);
+
     return (
-        <div key={index} className="acc-item" data-difficulty={question.difficulty} data-category={question.category}>
+        <div key={index} className="acc-item" data-difficulty={question.difficulty} data-category={categoryString}>
             <button className="acc-btn" onClick={() => onAccordionClick(index)}>
-                <span className="score-icon">⭐</span>
-                <span className="score">{question.difficulty.toUpperCase()}</span>
-                <span className="category-label">[{question.category.charAt(0).toUpperCase() + question.category.slice(1)}]</span>
-                {question.question}
+                <span className="score-icon">⭐ </span>
+                <span className="score">{difficultyString} </span>
+                <span className="category-label">[{categoryString}] </span>
+                <span className="category-label">{question.text}</span>
+                {question.title}
             </button>
-            <div className="acc-content" style={{ maxHeight: openedAccordion === index ? '100%' : '0' }}>
-                <p>Your Answer: {question.userAnswer} <span className={`answer-status ${question.answerStatus}`}>
-                    ({question.answerStatus.charAt(0).toUpperCase() + question.answerStatus.slice(1)})</span>
+            <div
+                ref={contentRef}
+                className="acc-content"
+                style={{
+                    maxHeight: openedAccordion === index ? `${contentRef.current.scrollHeight}px` : '0'
+                }}
+            >
+                <p>
+                    Your Answer: {getOptionLabel(question.lastChoiceByUser)}
+                    <span className={`answer-status ${question.lastChoiceByUser === question.correct ? 'correct' : 'incorrect'}`}>
+                        ({question.lastChoiceByUser === question.correct ? 'Correct' : 'Incorrect'})
+                    </span>
                 </p>
                 <ul className="options-list">
                     {question.options.map((option, idx) => (
-                        <li key={idx} className={option.startsWith(question.userAnswer) ? 'selected-option' : ''}>
-                            {option}
-                            {option.startsWith(question.correctAnswer) && (
-                                <span className="correct-answer">(Correct Answer)</span>
+                        <li key={idx} className={question.lastChoiceByUser === idx ? 'selected-option' : ''}>
+                            {getOptionLabel(idx)}. {option}
+                            {idx === question.correct && (
+                                <span className="correct-answer"> (Correct Answer)</span>
                             )}
                         </li>
                     ))}

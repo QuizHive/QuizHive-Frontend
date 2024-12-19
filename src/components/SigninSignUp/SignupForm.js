@@ -15,14 +15,12 @@ const SignupForm = () => {
 
         if (signupName && signupEmail && signupPassword && signupUserType) {
             try {
-                console.log(signupUserType)
                 const response = await api.post('/auth/register', {
                     nickname: signupName,
                     email: signupEmail,
                     passwordHash: signupPassword,
                     role: signupUserType
                 });
-                console.log(response)
                 if (response.status === 200) {
                     navigate('/mainmenu');
                 } else {

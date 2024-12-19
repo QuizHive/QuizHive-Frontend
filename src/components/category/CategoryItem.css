@@ -1,4 +1,15 @@
-/* src/styles/categoryItem.css */
+
+ .list_shopping > .col_md_1_list {
+    border-left: 4px solid #000000;
+    color: #000000;
+    transition: all 0.3s ease;
+}
+
+.dark-mode .list_shopping > .col_md_1_list {
+    border-left: 4px solid #f1f1ef;
+    color: #f1f1ef;
+}
+
 .col_md_1_list {
     width: 125px;
 }
@@ -15,9 +26,4 @@
 
 .list_dsp_true {
     opacity: 1;
-}
-
-.list_shopping > .col_md_1_list {
-    border-left: 4px solid #000000;
-    color: #000000;
 }

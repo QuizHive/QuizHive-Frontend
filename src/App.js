@@ -7,9 +7,8 @@ import MainMenu from './components/MainMenu';
 import Leaderboard from './components/Leaderboard';
 import Category from './components/Category';
 import Answering from './components/Answering';
-import PrivateRoute from './components/PrivateRoute';  // اضافه کردن Import برای PrivateRoute
+import PrivateRoute from './components/PrivateRoute';
 
-// Importing CSS files
 import './styles/management.css';
 import './styles/mainmenu.css';
 import './styles/leaderboard.css';

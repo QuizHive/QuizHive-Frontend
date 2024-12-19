@@ -1,9 +1,29 @@
-.existing-question {
+.existing-question-qi {
     border-bottom: 1px solid #ddd;
     margin-bottom: 10px;
     padding-bottom: 10px;
+    padding-top: 10px;
+    transition: background-color 0.3s, color 0.3s;
+    background-color: #fff;
+    color: #333;
 }
 
-.dark-mode .existing-question {
+.dark-mode .existing-question-qi {
     border-color: #444;
+    background-color: #2c2c2c;
+    color: #e0e0e0;
+}
+
+strong {
+    display: block;
+    margin: 5px 0;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+li {
+    margin: 5px 0;
 }

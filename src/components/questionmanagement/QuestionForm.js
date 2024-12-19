@@ -1,36 +1,59 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './questionForm.css';
+import api from '../../utils/axios';
 
 const QuestionForm = ({ onAddQuestion, darkMode }) => {
-    const [category, setCategory] = useState('SHOPPING');
+    const [categories, setCategories] = useState([]);
+    const [categoryId, setCategoryId] = useState('');
     const [title, setTitle] = useState('');
     const [questionText, setDescription] = useState('');
-    const [options, setOptions] = useState(['', '', '', '']); // Array for options
-    const [correct, setCorrectAnswer] = useState(''); // Will be a number (1-4)
-    const [difficulty, setDifficulty] = useState(1); // Default to EASY (1)
+    const [options, setOptions] = useState(['', '', '', '']);
+    const [correct, setCorrectAnswer] = useState('');
+    const [difficulty, setDifficulty] = useState(1);
+
+    useEffect(() => {
+        const fetchCategories = () => {
+            api.get('/questions/categories')
+                .then(response => {
+                    const categoryData = response.data.map(category => ({
+                        id: category._id,
+                        name: category.categoryName,
+                    }));
+                    setCategories(categoryData);
+                    if (categoryData.length > 0) {
+                        setCategoryId(categoryData[0].id);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching categories:', error);
+                });
+        };
+
+        fetchCategories();
+    }, []);
 
     const handleOptionChange = (index, value) => {
         const newOptions = [...options];
-        newOptions[index] = value; // Update the option at the specific index
+        newOptions[index] = value;
         setOptions(newOptions);
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         const newQuestion = {
-            category,
-            questionText,
+            title,
+            categoryId: categoryId,
+            text: questionText,
             options,
-            correct: Number(correct), // Convert to number
-            difficulty // This is already a number
+            correct: Number(correct),
+            difficulty
         };
         onAddQuestion(newQuestion);
-        // Reset the form
         setTitle('');
         setDescription('');
         setOptions(['', '', '', '']);
-        setCorrectAnswer(''); // Reset correctly to empty
-        setDifficulty(1); // Reset difficulty to default (1)
+        setCorrectAnswer('');
+        setDifficulty(1);
     };
 
     return (
@@ -39,11 +62,12 @@ const QuestionForm = ({ onAddQuestion, darkMode }) => {
             <form onSubmit={handleSubmit}>
                 <div>
                     <label>Category:</label>
-                    <select value={category} onChange={(e) => setCategory(e.target.value)}>
-                        <option value="SHOPPING">SHOPPING</option>
-                        <option value="WORK">WORK</option>
-                        <option value="SPORT">SPORT</option>
-                        <option value="MUSIC">MUSIC</option>
+                    <select value={categoryId} onChange={(e) => setCategoryId(e.target.value)}>
+                        {categories.map((cat, index) => (
+                            <option key={cat.id} value={cat.id}>
+                                {cat.name}
+                            </option>
+                        ))}
                     </select>
                 </div>
                 <div>
@@ -53,6 +77,7 @@ const QuestionForm = ({ onAddQuestion, darkMode }) => {
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                         placeholder="Enter your question here"
+                        required
                     />
                 </div>
                 <div>
@@ -80,7 +105,7 @@ const QuestionForm = ({ onAddQuestion, darkMode }) => {
                             <input
                                 type="text"
                                 value={option}
-                                onChange={(e) => handleOptionChange(index, e.target.value)} // Update specific option
+                                onChange={(e) => handleOptionChange(index, e.target.value)}
                                 placeholder={`Enter Option ${String.fromCharCode(97 + index).toUpperCase()}`}
                                 required
                             />

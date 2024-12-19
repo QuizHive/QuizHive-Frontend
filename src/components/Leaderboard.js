@@ -5,40 +5,14 @@ import LogoutButton from './components/LogoutButton';
 import ToggleModeButton from "./components/ToggleModeButton";
 import api from "../utils/axios";
 
-function Leaderboard(props) {
-    const data = props.data || [];
-    const rows = data.slice(0, 10).map((user, index) => {
-        const { userId, userName, earnings } = user;
-        return (
-            <li key={index}>
-                <img
-                    src={`http://www.rewards1.com/uploads/avatar/${userId}.jpg`}
-                    onError={e => e.target.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'}
-                    alt={`${userName}'s avatar`}
-                />
-                <mark>{userName}</mark>
-                <small>{earnings.toFixed(2)}</small>
-            </li>
-        );
-    });
-
-    return (
-        <div className="leaderboard">
-            <h1>{props.title || 'Leaderboard'}</h1>
-            <ol>{rows}</ol>
-        </div>
-    );
-}
-
-function App() {
+function Leaderboard() {
     const [data, setData] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
-        // دریافت داده‌ها از بک‌اند
         api.get('/users/leaderboard')
             .then(response => {
-                setData(response.data);
+                setData(response.data.scoreboard || []);
             })
             .catch(error => {
                 console.error('Error fetching leaderboard data:', error);
@@ -49,13 +23,31 @@ function App() {
         navigate('/main-menu');
     };
 
+    const rows = data.slice(0, 10).map((user, index) => {
+        const { id, earnings } = user;
+        return (
+            <li key={index}>
+                <img
+                    src={`http://www.rewards1.com/uploads/avatar/${id}.jpg`}
+                    onError={e => e.target.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'}
+                    alt={`${user.nickname}'s avatar`}
+                />
+                <mark>{user.nickname}</mark>
+                <small>{user.score !== undefined ? user.score.toFixed(2) : '0.00'}</small>
+            </li>
+        );
+    });
+
     return (
         <div>
             <LogoutButton onLogout={handleLogout} buttonText="Back" />
             <ToggleModeButton />
-            <Leaderboard title="Leaderboard" data={data} />
+            <div className="leaderboard">
+                <h1>Leaderboard</h1>
+                <div>{rows}</div>
+            </div>
         </div>
     );
 }
 
-export default App;
+export default Leaderboard;

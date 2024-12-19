@@ -18,7 +18,6 @@ const SigninForm = () => {
                     email: loginEmail,
                     passwordHash: loginPassword
                 });
-                console.log(response)
                 if (response.status === 200 && response.data.rToken && response.data.aToken) {
                     setAccessToken(response.data.aToken);
                     setRefreshToken(response.data.rToken);

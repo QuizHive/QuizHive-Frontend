@@ -1,4 +1,3 @@
-// src/components/Answering.js
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import RandomQuestion from './answering/RandomQuestion';
@@ -19,6 +18,7 @@ function Answering() {
     const [openIndex, setOpenIndex] = useState(null);
     const [userAnswers, setUserAnswers] = useState({});
     const [questionResults, setQuestionResults] = useState({});
+    const [categories, setCategories] = useState([]);
 
     useEffect(() => {
         api.get('/questions')
@@ -28,6 +28,18 @@ function Answering() {
             .catch(error => {
                 console.error('Error fetching questions:', error);
             });
+
+        api.get('/questions/categories')
+            .then(response => {
+                const categoryData = response.data.map(category => ({
+                    id: category._id,
+                    name: category.categoryName,
+                }));
+                setCategories(categoryData);
+            })
+            .catch(error => {
+                console.error('Error fetching categories:', error);
+            });
     }, []);
 
     const toggleAccordion = (index) => {
@@ -35,51 +47,55 @@ function Answering() {
     };
 
     const displayRandomQuestion = () => {
-        if (questions.length === 0) return;
-        const randomIndex = Math.floor(Math.random() * questions.length);
-        setCurrentQuestion(questions[randomIndex]);
+        const difficultyMap = {
+            1: 'easy',
+            2: 'normal',
+            3: 'hard'
+        };
+
+        const filteredQuestions = questions.filter(q =>
+            (selectedDifficulty === 'all' || difficultyMap[q.difficulty] === selectedDifficulty.toLowerCase()) &&
+            (selectedCategory === 'all' || q.category.categoryName === selectedCategory) &&
+            (q.lastChoiceByUser == null || q.lastChoiceByUser === undefined)
+        );
+
+        if (filteredQuestions.length === 0) return;
+        const randomIndex = Math.floor(Math.random() * filteredQuestions.length);
+        setCurrentQuestion(filteredQuestions[randomIndex]);
         setResultMessage('');
     };
 
     const submitRandomAnswer = async (event) => {
         event.preventDefault();
-        const selectedOption = event.target.elements['random-answer']?.value;
+        const selectedOption = Number(event.target.elements['random-answer']?.value);
 
-        if (!selectedOption) {
+        if (selectedOption === NaN) {
             setResultMessage('Please select an answer.');
             return;
         }
 
         try {
-            const response = await api.post('questions/submit-answer', {
-                questionId: currentQuestion.id,
-                answer: selectedOption
+            const response = await api.post('questions/submit', {
+                questionId: currentQuestion._id,
+                choice: selectedOption
             });
-            setResultMessage(response.data.correct ? 'Correct! 🎉' : 'Incorrect. Try again! ❌');
+            setResultMessage(response.data.isCorrect ? 'Correct! 🎉' : 'Incorrect. Try again! ❌');
         } catch (error) {
             console.error('Error submitting answer:', error);
             setResultMessage('An error occurred while submitting your answer.');
         }
     };
 
+
     const handleSubmitAnswer = async (event, question, index) => {
         event.preventDefault();
         const selectedAnswer = userAnswers[index];
-
-        if (!selectedAnswer) {
-            setQuestionResults({
-                ...questionResults,
-                [index]: 'Please select an answer.'
-            });
-            return;
-        }
-
         try {
-            const response = await api.post('/questions/submit-answer', {
-                questionId: question.id,
-                answer: selectedAnswer
+            const response = await api.post('/questions/submit', {
+                questionId: question._id,
+                choice: selectedAnswer
             });
-            const result = response.data.correct ? 'Correct! 🎉' : 'Incorrect. Try again! ❌';
+            const result = response.data.isCorrect ? 'Correct! 🎉' : 'Incorrect. Try again! ❌';
             setQuestionResults({
                 ...questionResults,
                 [index]: result
@@ -97,10 +113,18 @@ function Answering() {
         navigate('/questions');
     };
 
+    const difficultyMap = {
+        1: 'easy',
+        2: 'normal',
+        3: 'hard'
+    };
+
     const filteredQuestions = questions.filter(q =>
-        (selectedDifficulty === 'all' || q.difficulty === selectedDifficulty) &&
-        (selectedCategory === 'all' || q.category === selectedCategory)
+        (selectedDifficulty === 'all' || difficultyMap[q.difficulty] === selectedDifficulty.toLowerCase()) &&
+        (selectedCategory === 'all' || q.category.categoryName === selectedCategory) &&
+        (q.lastChoiceByUser == null || q.lastChoiceByUser === undefined)
     );
+
 
     return (
         <div>
@@ -122,6 +146,7 @@ function Answering() {
                     setSelectedDifficulty={setSelectedDifficulty}
                     selectedCategory={selectedCategory}
                     setSelectedCategory={setSelectedCategory}
+                    categories={categories}
                 />
 
                 {filteredQuestions.map((question, index) => (

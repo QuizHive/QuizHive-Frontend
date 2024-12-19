@@ -1,4 +1,3 @@
-/* src/styles/Filters.css */
 .filter-options {
     margin: 1rem 0;
     text-align: center;
@@ -23,7 +22,7 @@
 }
 
 #category-select {
-    appearance: none; /* Removes default browser styles */
+    appearance: none;
     background-color: #007bff;
     color: white;
     font-weight: bold;

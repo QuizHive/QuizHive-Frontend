@@ -1,4 +1,3 @@
-/* src/styles/QuestionAccordion.css */
 .acc-item {
     margin: 10px 0;
 }
@@ -24,6 +23,5 @@
 }
 
 .acc-btn.is-open {
-    color: #000;
     font-weight: bold;
 }

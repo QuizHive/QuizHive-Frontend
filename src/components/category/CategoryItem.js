@@ -1,6 +1,5 @@
 
 import './CategoryItem.css';
-// src/components/CategoryItem.js
 import React from 'react';
 
 const CategoryItem = ({ category }) => (

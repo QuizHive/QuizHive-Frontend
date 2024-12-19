@@ -1,11 +1,9 @@
-
+import React, { useState } from 'react';
 import './CategoryList.css';
-// src/components/CategoryList.js
-import React from 'react';
 import CategoryItem from './CategoryItem';
 
-const CategoryList = ({ categories }) => (
-    <ul id="category-list">
+const CategoryList = ({ categories, isDarkMode }) => (
+    <ul id="category-list" className={isDarkMode ? 'dark-mode' : ''}>
         {categories.map((category, index) => (
             <CategoryItem key={index} category={category} />
         ))}

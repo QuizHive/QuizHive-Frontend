@@ -5,21 +5,24 @@
     background-color: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: #333;
 }
 
 .title {
     font-size: 2rem;
     margin-bottom: 20px;
     text-align: center;
+    color: #333;
+}
+.dark-mode title{
+    color: #fff;
 }
 
-
-.dark-mode-q {
+.dark-mode .card {
     background-color: #333;
     color: #f9f9f9;
 }
 
-.light-mode-q {
-    background-color: #fff;
-    color: #333;
+.dark-mode .title {
+    color: #f9f9f9;
 }

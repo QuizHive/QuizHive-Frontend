@@ -1,4 +1,3 @@
-/* src/styles/QuestionCard.css */
 .acc-item {
     margin: 10px 0;
 }
@@ -17,16 +16,24 @@
 
 .acc-content {
     max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
     color: rgba(0, 0, 0, 0.75);
     font-size: 1.5rem;
     margin: 0 2rem;
-    padding-left: 1rem;
-    overflow: hidden;
-    transition: max-height 0.3s ease-in-out;
+    padding: 1rem 0;
     border-bottom: 1px solid #ccc;
 }
 
-/* Additional styles for strong visual */
+.options-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.options-list li {
+    margin: 0.5rem 0;
+}
+
 .selected-option {
     background-color: #f0f0f0;
     font-weight: bold;
@@ -39,10 +46,38 @@
 
 .answer-status.correct {
     color: green;
-    font-weight: bold;
 }
-
 .answer-status.incorrect {
     color: red;
-    font-weight: bold;
+}
+
+.dark-mode .acc-item {
+    background-color: #444;
+}
+
+.dark-mode .acc-btn {
+    background: #555;
+    color: #f9f9f9;
+    border-bottom: 1px solid #666;
+}
+
+.dark-mode .acc-content {
+    color: rgba(255, 255, 255, 0.85);
+    border-bottom: 1px solid #666;
+}
+
+.dark-mode .selected-option {
+    background-color: #666;
+}
+
+.dark-mode .correct-answer {
+    color: #00ff00;
+}
+
+.dark-mode .answer-status.correct {
+    color: #00ff00;
+}
+
+.dark-mode .answer-status.incorrect {
+    color: #ff3333;
 }

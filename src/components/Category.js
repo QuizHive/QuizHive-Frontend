@@ -1,4 +1,3 @@
-// src/components/SigninSignUp.js
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/category.css';
@@ -15,6 +14,10 @@ const Category = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        fetchCategories();
+    }, []);
+
+    const fetchCategories = () => {
         api.get('/questions/categories')
             .then(response => {
                 setCategories(response.data);
@@ -22,7 +25,7 @@ const Category = () => {
             .catch(error => {
                 console.error('Error fetching categories:', error);
             });
-    }, []);
+    };
 
     const toggleForm = () => {
         setIsFormActive(!isFormActive);
@@ -34,11 +37,9 @@ const Category = () => {
             return;
         }
 
-        const newCategory = { categoryName, description };
-
-        api.post('/questions/categories', newCategory)
+        api.post('/questions/category', { categoryName: categoryName, description: description })
             .then(response => {
-                setCategories(prevCategories => [...prevCategories, response.data]);
+                fetchCategories();
                 setIsFormActive(false);
             })
             .catch(error => {
@@ -51,7 +52,7 @@ const Category = () => {
     };
 
     return (
-        <div className={`app-container ${darkMode ? 'dark-mode' : 'light-mode'}`}>
+        <>
             <LogoutButton onLogout={handleBack} buttonText="Back" />
             <ToggleModeButton />
 
@@ -62,7 +63,7 @@ const Category = () => {
                     </div>
                     <div className="cont_add_titulo_cont">
                         <button onClick={toggleForm}>
-                            <i className="material-icons">&#xE145;</i>
+                            <h4 className="material-icons">⬤</h4>
                         </button>
                     </div>
                 </div>
@@ -73,7 +74,7 @@ const Category = () => {
                     <CategoryList categories={categories} />
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 

@@ -1,20 +1,15 @@
 import axios from 'axios';
-import { getAccessToken, getRefreshToken, setAccessToken, clearTokens } from './auth';
+import {clearTokens, getAccessToken, getRefreshToken, setAccessToken} from './auth';
 
 const api = axios.create({
-    baseURL: `${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}`, // آدرس سرور API شما
+    baseURL: `${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}`,
 });
 
-// Add a request interceptor
 api.interceptors.request.use(
     (config) => {
         const token = getAccessToken();
         if (token) {
-            console.log("Using token:", token);
             config.headers.Authorization = `Bearer ${token}`;
-        }
-        else {
-            console.log("No token available");
         }
         return config;
     },
@@ -23,24 +18,30 @@ api.interceptors.request.use(
     }
 );
 
-// Add a response interceptor
 api.interceptors.response.use(
     (response) => {
         return response;
     },
     async (error) => {
         const originalRequest = error.config;
-        if (error.response.status === 401 && !originalRequest._retry) {
+        const {message} = error.response.data;
+        if(error.response.status !== 401) return Promise.reject(error);
+        if(!message.includes('token')) return Promise.reject(error);
+        if(originalRequest._retry) {
+            clearTokens();
+            window.location.href = '/signin-signup';
+            return Promise.reject(error);
+        }
+        if (!originalRequest._retry) {
             originalRequest._retry = true;
             try {
-                const refreshToken = getRefreshToken();
-                const {aToken} = await api.post('/auth/refresh-token', { rtoken: refreshToken });
+                const {aToken} = await api.post('/auth/refresh-token', { rToken: getRefreshToken() });
                 setAccessToken(aToken);
                 originalRequest.headers.Authorization = `Bearer ${aToken}`;
                 return api(originalRequest);
             } catch (refreshError) {
                 clearTokens();
-                window.location.href = '/signin-signup'; // به صفحه ورود هدایت می‌شود
+                window.location.href = '/signin-signup';
                 return Promise.reject(refreshError);
             }
         }

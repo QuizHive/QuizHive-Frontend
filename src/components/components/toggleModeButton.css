@@ -4,7 +4,6 @@ body.light-mode {
 
 body.dark-mode {
   background-color: #1f2029;
-  color: #e0e0e0;
 }
 
 #mode-toggle-sign {
@@ -18,7 +17,7 @@ body.dark-mode {
   cursor: pointer;
   border-radius: 5px;
   z-index: 1000;
-  transition: background-color 250ms ease; /* افزودن transition برای افکت روان‌تر */
+  transition: background-color 250ms ease;
 }
 
 #mode-toggle-sign:hover {
