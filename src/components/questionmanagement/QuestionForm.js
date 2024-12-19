@@ -45,7 +45,7 @@ const QuestionForm = ({ onAddQuestion, darkMode }) => {
             categoryId: categoryId,
             text: questionText,
             options,
-            correct: Number(correct),
+            correct: Number(correct)-1,
             difficulty
         };
         onAddQuestion(newQuestion);
