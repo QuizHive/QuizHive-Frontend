@@ -15,7 +15,7 @@ body {
   font-size: 15px;
   line-height: 1.7;
   color: var(--sec-color);
-  background-color: var(--background-color);
+  background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/pat.svg');
   overflow-x: hidden;
 }
 
