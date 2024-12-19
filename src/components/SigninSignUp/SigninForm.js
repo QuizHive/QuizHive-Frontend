@@ -1,7 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import './styles/signinForm.css';
+import api from "../../utils/axios";
+import {setAccessToken, setRefreshToken} from "../../utils/auth";
 
 const SigninForm = () => {
     const navigate = useNavigate();
@@ -13,14 +14,14 @@ const SigninForm = () => {
 
         if (loginEmail && loginPassword) {
             try {
-                const response = await axios.post(`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/auth/login`, {
+                const response = await api.post('/auth/login', {
                     email: loginEmail,
                     passwordHash: loginPassword
                 });
                 console.log(response)
                 if (response.status === 200 && response.data.rToken && response.data.aToken) {
-                    localStorage.setItem('atoken', response.data.aToken); // ذخیره اکسس توکن
-                    localStorage.setItem('rtoken', response.data.rToken);
+                    setAccessToken(response.data.aToken);
+                    setRefreshToken(response.data.rToken);
                     navigate('/main-menu');
                 } else {
                     alert(response.data.message || 'Login failed');

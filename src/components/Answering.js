@@ -1,13 +1,13 @@
 // src/components/Answering.js
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import RandomQuestion from './answering/RandomQuestion';
 import QuestionAccordion from './answering/QuestionAccordion';
 import Filters from './answering/Filters';
 import LogoutButton from "./components/LogoutButton";
 import ToggleModeButton from "./components/ToggleModeButton";
 import '../styles/answering.css';
+import api from "../utils/axios";
 
 function Answering() {
     const navigate = useNavigate();
@@ -21,7 +21,7 @@ function Answering() {
     const [questionResults, setQuestionResults] = useState({});
 
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/api/questions`)
+        api.get('/questions')
             .then(response => {
                 setQuestions(response.data);
             })
@@ -51,7 +51,7 @@ function Answering() {
         }
 
         try {
-            const response = await axios.post(`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/api/submit-answer`, {
+            const response = await api.post('questions/submit-answer', {
                 questionId: currentQuestion.id,
                 answer: selectedOption
             });
@@ -75,7 +75,7 @@ function Answering() {
         }
 
         try {
-            const response = await axios.post(`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/api/submit-answer`, {
+            const response = await api.post('/questions/submit-answer', {
                 questionId: question.id,
                 answer: selectedAnswer
             });

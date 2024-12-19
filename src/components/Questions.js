@@ -1,11 +1,11 @@
 // src/components/Questions.js
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import QuestionCard from './Questions/QuestionCard';
 import Filter from './Questions/Filter';
 import LogoutButton from "./components/LogoutButton";
 import ToggleModeButton from "./components/ToggleModeButton";
+import api from "../utils/axios";
 
 const Questions = () => {
     const [isDarkMode, setIsDarkMode] = useState(false);
@@ -25,8 +25,7 @@ const Questions = () => {
     };
 
     useEffect(() => {
-        // دریافت سوالات از بک‌اند
-        axios.get(`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/api/questions`)
+        api.get('/questions')
             .then(response => {
                 setQuestionsData(response.data);
             })

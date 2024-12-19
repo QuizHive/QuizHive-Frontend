@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios'; // اضافه کردن axios
 import '../styles/leaderboard.css';
 import LogoutButton from './components/LogoutButton';
 import ToggleModeButton from "./components/ToggleModeButton";
+import api from "../utils/axios";
 
 function Leaderboard(props) {
     const data = props.data || [];
@@ -36,7 +36,7 @@ function App() {
 
     useEffect(() => {
         // دریافت داده‌ها از بک‌اند
-        axios.get(`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/api/leaderboard`)
+        api.get('/users/leaderboard')
             .then(response => {
                 setData(response.data);
             })

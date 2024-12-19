@@ -1,12 +1,12 @@
 // src/components/SigninSignUp.js
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import '../styles/category.css';
 import LogoutButton from './components/LogoutButton';
 import ToggleModeButton from './components/ToggleModeButton';
 import CategoryList from './category/CategoryList';
 import CategoryForm from './category/CategoryForm';
+import api from "../utils/axios";
 
 const Category = () => {
     const [darkMode, setDarkMode] = useState(false);
@@ -15,7 +15,7 @@ const Category = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/api/categories`)
+        api.get('/questions/categories')
             .then(response => {
                 setCategories(response.data);
             })
@@ -28,15 +28,15 @@ const Category = () => {
         setIsFormActive(!isFormActive);
     };
 
-    const addNewCategory = (title, description) => {
-        if (!title || !description) {
+    const addNewCategory = (categoryName, description) => {
+        if (!categoryName || !description) {
             alert('Please fill in both the title and description');
             return;
         }
 
-        const newCategory = { title, description };
+        const newCategory = { categoryName, description };
 
-        axios.post(`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/api/categories`, newCategory)
+        api.post('/questions/categories', newCategory)
             .then(response => {
                 setCategories(prevCategories => [...prevCategories, response.data]);
                 setIsFormActive(false);

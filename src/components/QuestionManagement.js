@@ -6,7 +6,6 @@ import LogoutButton from './components/LogoutButton';
 import ToggleModeButton from './components/ToggleModeButton';
 import QuestionForm from './questionmanagement/QuestionForm';
 import QuestionList from './questionmanagement/QuestionList';
-import {getAccessToken, getRefreshToken} from "../utils/auth";
 
 const QuestionManagement = () => {
     const [darkMode, setDarkMode] = useState(false);
@@ -15,7 +14,7 @@ const QuestionManagement = () => {
 
     useEffect(() => {
         // Use the axios instance to fetch questions
-        api.get(`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/questions`)
+        api.get("/questions")
             .then(response => {
                 setExistingQuestions(response.data);
             })

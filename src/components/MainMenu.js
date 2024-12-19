@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import ToggleModeButton from './components/ToggleModeButton';
 import LogoutButton from './components/LogoutButton';
 import Shapes from './MainMenu/Shapes'
+import api from "../utils/axios";
 
 const MainMenu = () => {
     const [score, setScore] = useState(null);
@@ -11,8 +11,7 @@ const MainMenu = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // دریافت اطلاعات کاربر و امتیاز از بک‌اند
-        axios.get(`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/user`)  // اینجا مسیر API خود را جایگزین کنید
+        api.get('/users/me')
             .then(response => {
                 const userInfo = response.data;
                 setScore(userInfo.score);

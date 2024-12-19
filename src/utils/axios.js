@@ -30,20 +30,13 @@ api.interceptors.response.use(
     },
     async (error) => {
         const originalRequest = error.config;
-
         if (error.response.status === 401 && !originalRequest._retry) {
             originalRequest._retry = true;
-
             try {
                 const refreshToken = getRefreshToken();
-
-                const response = await api.post('/auth/refresh-token', { token: refreshToken });
-
-                const newAccessToken = response.data.accessToken;
-                setAccessToken(newAccessToken);
-
-                originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-
+                const {aToken} = await api.post('/auth/refresh-token', { rtoken: refreshToken });
+                setAccessToken(aToken);
+                originalRequest.headers.Authorization = `Bearer ${aToken}`;
                 return api(originalRequest);
             } catch (refreshError) {
                 clearTokens();
@@ -51,7 +44,6 @@ api.interceptors.response.use(
                 return Promise.reject(refreshError);
             }
         }
-
         return Promise.reject(error);
     }
 );

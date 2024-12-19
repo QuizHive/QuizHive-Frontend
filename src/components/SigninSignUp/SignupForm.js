@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import './styles/signinForm.css';
+import api from "../../utils/axios";
 
 const SignupForm = () => {
     const navigate = useNavigate();
@@ -16,7 +16,7 @@ const SignupForm = () => {
         if (signupName && signupEmail && signupPassword && signupUserType) {
             try {
                 console.log(signupUserType)
-                const response = await axios.post(`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_PREFIX}/auth/register`, {
+                const response = await api.post('/auth/register', {
                     nickname: signupName,
                     email: signupEmail,
                     passwordHash: signupPassword,
