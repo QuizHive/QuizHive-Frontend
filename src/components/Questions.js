@@ -55,7 +55,7 @@ const Questions = () => {
         return questionsData.filter(question => {
             const matchesDifficulty = difficulty === 'all' || difficultyMap[question.difficulty] === difficulty.toLowerCase();
             const matchesCategory = category === 'all' || question.category.categoryName === category;
-            const hasUserAnswer = question.lastChoiceByUser != null;
+            const hasUserAnswer = question.lastChoiceByUser != null && question.lastChoiceByUser !== -1;
             return matchesDifficulty && matchesCategory && hasUserAnswer;
         });
     };

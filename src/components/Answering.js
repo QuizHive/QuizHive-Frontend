@@ -52,11 +52,10 @@ function Answering() {
             2: 'normal',
             3: 'hard'
         };
-
         const filteredQuestions = questions.filter(q =>
             (selectedDifficulty === 'all' || difficultyMap[q.difficulty] === selectedDifficulty.toLowerCase()) &&
             (selectedCategory === 'all' || q.category.categoryName === selectedCategory) &&
-            (q.lastChoiceByUser == null || q.lastChoiceByUser === undefined)
+            (q.lastChoiceByUser == null || q.lastChoiceByUser === undefined || q.lastChoiceByUser === -1)
         );
 
         if (filteredQuestions.length === 0) return;
@@ -76,10 +75,10 @@ function Answering() {
 
         try {
             const response = await api.post('questions/submit', {
-                questionId: currentQuestion._id,
+                questionId: currentQuestion.id,
                 choice: selectedOption
             });
-            setResultMessage(response.data.isCorrect ? 'Correct! 🎉' : 'Incorrect. Try again! ❌');
+            setResultMessage(response.data.correct ? 'Correct! 🎉' : 'Incorrect. Try again! ❌');
         } catch (error) {
             console.error('Error submitting answer:', error);
             setResultMessage('An error occurred while submitting your answer.');
@@ -92,10 +91,10 @@ function Answering() {
         const selectedAnswer = userAnswers[index];
         try {
             const response = await api.post('/questions/submit', {
-                questionId: question._id,
+                questionId: question.id,
                 choice: selectedAnswer
             });
-            const result = response.data.isCorrect ? 'Correct! 🎉' : 'Incorrect. Try again! ❌';
+            const result = response.data.correct ? 'Correct! 🎉' : 'Incorrect. Try again! ❌';
             setQuestionResults({
                 ...questionResults,
                 [index]: result
@@ -118,11 +117,11 @@ function Answering() {
         2: 'normal',
         3: 'hard'
     };
-
+    console.log(questions);
     const filteredQuestions = questions.filter(q =>
         (selectedDifficulty === 'all' || difficultyMap[q.difficulty] === selectedDifficulty.toLowerCase()) &&
         (selectedCategory === 'all' || q.category.categoryName === selectedCategory) &&
-        (q.lastChoiceByUser == null || q.lastChoiceByUser === undefined)
+        (q.lastChoiceByUser == null || q.lastChoiceByUser === undefined || q.lastChoiceByUser === -1)
     );
 
 

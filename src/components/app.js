@@ -6,6 +6,7 @@ import './styles/resetpassword.css';
 import './styles/signinlogin.css';
 import './styles/mainmenu.css';
 import './styles/leaderboard.css';
+import './styles/Feed.css';
 import './styles/category.css';
 import './styles/answering.css';
 

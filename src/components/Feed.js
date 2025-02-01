@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/leaderboard.css';
+import '../styles/Feed.css';
 import LogoutButton from './components/LogoutButton';
 import ToggleModeButton from "./components/ToggleModeButton";
 import QuestionAccordion from './answering/QuestionAccordion';
@@ -15,7 +16,7 @@ function SearchUsers() {
 
     const fetchUsers = async (query) => {
         try {
-            const response = await api.get(`/users/search?nickname=${query}`);
+            const response = await api.get(`/users/search?query=${query}`);
             setData(response.data.users || []);
         } catch (error) {
             console.error('Error fetching users:', error);
@@ -60,7 +61,7 @@ function SearchUsers() {
             <LogoutButton onLogout={handleLogout} buttonText="Back" />
             <ToggleModeButton />
             <div className="dashboard">
-                {/* ستون راست برای جستجوی کاربران */}
+                {/* Right section for search */}
                 <div className="search-card">
                     <h1>Search Developers</h1>
                     <input
@@ -85,7 +86,7 @@ function SearchUsers() {
                     </ul>
                 </div>
 
-                {/* ستون چپ برای سوالات */}
+                {/* Left section for questions */}
                 <div className="questions-card">
                     <h1>Questions</h1>
                     {questions.map((question, index) => (
@@ -103,6 +104,7 @@ function SearchUsers() {
                     ))}
                 </div>
             </div>
+
         </div>
     );
 }

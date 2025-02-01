@@ -4,8 +4,7 @@ import './questionItem.css';
 const QuestionItem = ({ question }) => {
     return (
         <li className="existing-question-qi">
-            {/*TODO CATEGORYNAME fix she*/}
-            <strong>Category:</strong> {question.categoryId ? question.categoryId : "N/A"}<br />
+            <strong>Category:</strong> {question.category.categoryName ? question.category.categoryName : "N/A"}<br />
             <strong>Title:</strong> {question.title}<br />
             <strong>Description:</strong> {question.text}<br />
             <strong>Difficulty:</strong> {question.difficulty}<br />
