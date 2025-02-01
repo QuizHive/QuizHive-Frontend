@@ -16,6 +16,7 @@ const QuestionManagement = () => {
         api.get("/questions")
             .then(response => {
                 setExistingQuestions(response.data);
+                console.log(response.data)
             })
             .catch(error => {
                 console.error('Error fetching questions:', error);
@@ -23,6 +24,7 @@ const QuestionManagement = () => {
     }, []);
 
     const addQuestion = (newQuestion) => {
+        console.log(newQuestion);
         api.post(`/questions`, newQuestion, {
             headers: { 'Content-Type': 'application/json' }
         })

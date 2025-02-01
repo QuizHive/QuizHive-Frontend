@@ -42,6 +42,7 @@ const MainMenu = () => {
                             <div className="action-link-wrap">
                                 <Link to="/questions">Question Management</Link>
                                 <Link to="/leaderboard">Leaderboard</Link>
+                                <Link to="/feed">Feed</Link>
                             </div>
                         </div>
                     </div>

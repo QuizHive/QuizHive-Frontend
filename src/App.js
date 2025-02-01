@@ -5,6 +5,7 @@ import Questions from './components/Questions';
 import SigninSignUp from './components/SigninSignUp';
 import MainMenu from './components/MainMenu';
 import Leaderboard from './components/Leaderboard';
+import Feed from './components/Feed';
 import Category from './components/Category';
 import Answering from './components/Answering';
 import PrivateRoute from './components/PrivateRoute';
@@ -43,6 +44,11 @@ function App() {
                 <Route path="/leaderboard" element={
                     <PrivateRoute>
                         <Leaderboard />
+                    </PrivateRoute>
+                } />
+                <Route path="/feed" element={
+                    <PrivateRoute>
+                        <Feed />
                     </PrivateRoute>
                 } />
                 <Route path="/category" element={

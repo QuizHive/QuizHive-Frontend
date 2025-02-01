@@ -16,12 +16,13 @@ const QuestionForm = ({ onAddQuestion, darkMode }) => {
             api.get('/questions/categories')
                 .then(response => {
                     const categoryData = response.data.map(category => ({
-                        id: category._id,
+                        id: category.id,
                         name: category.categoryName,
                     }));
                     setCategories(categoryData);
+                    console.log(response.data);
                     if (categoryData.length > 0) {
-                        setCategoryId(categoryData[0].id);
+                        setCategoryId(categoryData[0]);
                     }
                 })
                 .catch(error => {

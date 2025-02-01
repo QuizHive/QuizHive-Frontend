@@ -18,7 +18,7 @@ const SignupForm = () => {
                 const response = await api.post('/auth/register', {
                     nickname: signupName,
                     email: signupEmail,
-                    passwordHash: signupPassword,
+                    password: signupPassword,
                     role: signupUserType
                 });
                 if (response.status === 200) {
