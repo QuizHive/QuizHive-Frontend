@@ -25,12 +25,10 @@ jobs:
 
     - name: Install dependencies
       run: |
-        cd kalado-client
         npm install
 
     - name: Build the app
       run: |
-        cd kalado-client
         npm run build
 
    # Log in to Docker Hub
