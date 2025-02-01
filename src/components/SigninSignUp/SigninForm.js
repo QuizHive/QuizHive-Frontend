@@ -16,11 +16,11 @@ const SigninForm = () => {
             try {
                 const response = await api.post('/auth/login', {
                     email: loginEmail,
-                    passwordHash: loginPassword
+                    password: loginPassword
                 });
-                if (response.status === 200 && response.data.rToken && response.data.aToken) {
-                    setAccessToken(response.data.aToken);
-                    setRefreshToken(response.data.rToken);
+                if (response.status === 200 && response.data.refreshToken && response.data.accessToken) {
+                    setAccessToken(response.data.accessToken);
+                    setRefreshToken(response.data.refreshToken);
                     navigate('/main-menu');
                 } else {
                     alert(response.data.message || 'Login failed');
