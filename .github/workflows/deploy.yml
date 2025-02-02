@@ -3,11 +3,7 @@ name: CI
 on:
   push:
     branches:
-      #- api
       - main
-      #- feature/api-connection
-  # pull_request:
-  #   branches: [main]
 
 jobs:
   build:
@@ -40,8 +36,7 @@ jobs:
 
     - name: Build and Push Docker Images
       run: |
-        #docker buildx build --platform linux/amd64,linux/arm64 --build-arg JAR_FILE=app.jar -t amiril/kalado_discovery:latest -f ./discovery/DockerFile ./discovery --push
-        docker build -t amiril/vite-react-front:latest . --push
+        docker build -t amiril/quizhive-front-react:latest . --push
 
     - name: Copy docker-compose.yml to server
       uses: appleboy/scp-action@v0.1.0
@@ -63,11 +58,3 @@ jobs:
           docker compose down
           docker compose pull
           docker compose up -d
-
-#    - name: Build and push Docker image
-#      uses: docker/build-push-action@v5
-#      with:
-#        context: .
-#        file: ./Dockerfile
-#        push: true
-#        tags: ${{ secrets.DOCKER_USERNAME }}/kalado-client:latest

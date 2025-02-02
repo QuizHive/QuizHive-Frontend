@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import './styles/signinForm.css';
 import api from "../../utils/axios";
 import {setAccessToken, setRefreshToken} from "../../utils/auth";
@@ -23,7 +23,7 @@ const SigninForm = () => {
                     setRefreshToken(response.data.refreshToken);
                     navigate('/main-menu');
                 } else {
-                    alert(response.data.message || 'Login failed');
+                    alert(response.data.error || 'Login failed');
                 }
             } catch (error) {
                 console.error('Error logging in:', error);
@@ -40,11 +40,13 @@ const SigninForm = () => {
                 <div className="section text-center">
                     <h4 className="mb-4 pb-3">Log In</h4>
                     <div className="form-group">
-                        <input type="email" name="logemail" className="form-style" placeholder="Your Email" id="logemail" autoComplete="off" />
+                        <input type="email" name="logemail" className="form-style" placeholder="Your Email"
+                               id="logemail" autoComplete="off"/>
                         <i className="input-icon uil uil-at"></i>
                     </div>
                     <div className="form-group mt-2">
-                        <input type="password" name="logpass" className="form-style" placeholder="Your Password" id="logpass" autoComplete="off" />
+                        <input type="password" name="logpass" className="form-style" placeholder="Your Password"
+                               id="logpass" autoComplete="off"/>
                         <i className="input-icon uil uil-lock-alt"></i>
                     </div>
                     <button onClick={handleLoginSubmit} className="btn mt-4 random-btn">Submit</button>

@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import ToggleModeButton from './components/ToggleModeButton';
 import LogoutButton from './components/LogoutButton';
-import Shapes from './MainMenu/Shapes'
+import Shapes from './MainMenu/Shapes';
 import api from "../utils/axios";
 
 const MainMenu = () => {
     const [score, setScore] = useState(null);
+    const [nickname, setNickname] = useState('');
     const [isPlayer, setIsPlayer] = useState(false);
     const navigate = useNavigate();
 
@@ -15,6 +16,7 @@ const MainMenu = () => {
             .then(response => {
                 const userInfo = response.data;
                 setScore(userInfo.score);
+                setNickname(userInfo.nickname); // Set nickname from API
                 setIsPlayer(userInfo.role !== 'admin');
             })
             .catch(error => {
@@ -37,7 +39,7 @@ const MainMenu = () => {
                         Score: {score !== null ? score : 'Loading...'}
                     </div>
                     <div className="message-box">
-                        <h1>Welcome Player</h1>
+                        <h1>Welcome {nickname ? nickname : 'Player'}</h1>
                         <div className="buttons-con">
                             <div className="action-link-wrap">
                                 <Link to="/questions">Question Management</Link>
@@ -49,7 +51,7 @@ const MainMenu = () => {
                 </div>
             ) : (
                 <div className="message-box">
-                    <h1>Welcome</h1>
+                    <h1>Welcome {nickname ? nickname : ''}</h1>
                     <div className="buttons-con">
                         <div className="action-link-wrap">
                             <Link to="/question-management">Question Management</Link>

@@ -11,10 +11,10 @@ RUN mkdir -p /home/node/app && chown -R node:node /home/node/app
 WORKDIR /home/node/app
 
 ## grant permission of node project directory to node user
-# COPY --chown=node:node . .
+COPY --chown=node:node . .
 
 # installing the dependencies into the container
-# RUN npm i
+RUN npm i
 
 # command to run within the container
 CMD [ "npm", "start" ]

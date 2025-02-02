@@ -22,13 +22,12 @@ const SignupForm = () => {
                     role: signupUserType
                 });
                 if (response.status === 200) {
-                    navigate('/mainmenu');
                 } else {
-                    alert(response.data.message || 'Signup failed');
+                    alert(response.data.error || 'Signup failed');
                 }
             } catch (error) {
                 console.error('Error signing up:', error);
-                alert('An error occurred during signup.');
+                alert('An error occurred during signup');
             }
         } else {
             alert('Please fill in all fields.');
