@@ -6,7 +6,7 @@ services:
     env_file: .env
     user: node
     ports:
-      - '$PORT:8081'
+      - '$PORT:$PORT'
 #    volumes:
 #      - .:/home/node/app
     restart: unless-stopped
