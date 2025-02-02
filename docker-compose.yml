@@ -1,6 +1,7 @@
 services:
   frontend:
-    build: .
+    image: amiril/quizhive-front-react:latest
+#    build: .
     container_name: quizhive_frontend
     env_file: .env
     user: node
