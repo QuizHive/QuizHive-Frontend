@@ -4,8 +4,7 @@ import './styles/signinForm.css';
 import api from "../../utils/axios";
 
 const SignupForm = () => {
-    const navigate = useNavigate();
-
+    useNavigate();
     const handleSignupSubmit = async (event) => {
         event.preventDefault();
         const signupName = document.getElementById('signupName').value.trim();

@@ -8,7 +8,6 @@ import CategoryForm from './category/CategoryForm';
 import api from "../utils/axios";
 
 const Category = () => {
-    const [darkMode, setDarkMode] = useState(false);
     const [categories, setCategories] = useState([]);
     const [isFormActive, setIsFormActive] = useState(false);
     const navigate = useNavigate();

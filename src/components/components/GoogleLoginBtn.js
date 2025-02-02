@@ -18,6 +18,7 @@ const GoogleLoginButton = () => {
             const isMatch = window.location.href.match(codeRegex);
             
             if (isMatch) {
+                // eslint-disable-next-line react-hooks/exhaustive-deps
                 state = true;
                 setIsLoading(true);
                 console.log("isMatch...: " + window.location.href);

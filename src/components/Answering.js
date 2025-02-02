@@ -68,7 +68,7 @@ function Answering() {
         event.preventDefault();
         const selectedOption = Number(event.target.elements['random-answer']?.value);
 
-        if (selectedOption === NaN) {
+        if (isNaN(selectedOption)) {
             setResultMessage('Please select an answer.');
             return;
         }

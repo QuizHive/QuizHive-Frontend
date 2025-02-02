@@ -24,7 +24,7 @@ function Leaderboard() {
     };
 
     const rows = data.slice(0, 10).map((user, index) => {
-        const { id, earnings } = user;
+        const { id } = user;
         return (
             <li key={index}>
                 <img
